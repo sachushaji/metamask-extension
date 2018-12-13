@@ -24,6 +24,10 @@
     position: relative;
   }
 
+  &__tooltip-wrapper {
+    left: -10px;
+  }
+
   &__account-balances {
     height: auto;
     border: none;
@@ -32,6 +36,16 @@
     margin-left: 34px;
     margin-top: 4px;
     position: relative;
+  }
+
+  &__cached-balances {
+    div:first-of-type {
+      color: $web-orange;
+    }
+
+    div:last-of-type {
+      color: rgba(220, 153, 18, 0.6901960784313725)
+    }
   }
 
   &__account-name {

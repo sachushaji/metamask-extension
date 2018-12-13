@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
+import classnames from 'classnames'
 import Button from '../button'
 import Identicon from '../identicon'
 import TokenBalance from '../token-balance'
@@ -36,26 +37,27 @@ export default class TransactionViewBalance extends PureComponent {
           />
         </div>
       ) : (
-          <div className="transaction-view-balance__balance">
-            { balanceIsCached
-              ? <Tooltip position="top" title={this.context.t('balanceOutdated')}>
-                <div className="transaction-view-balance__balance-flag">*</div>
-              </Tooltip>
-              : null
-            }
-            <UserPreferencedCurrencyDisplay
-              className="transaction-view-balance__primary-balance"
-              value={balance}
-              type={PRIMARY}
-              ethNumberOfDecimals={4}
-            />
-            <UserPreferencedCurrencyDisplay
-              className="transaction-view-balance__secondary-balance"
-              value={balance}
-              type={SECONDARY}
-              ethNumberOfDecimals={4}
-            />
-          </div>
+          <Tooltip position="top" title={this.context.t('balanceOutdated')} disabled={!balanceIsCached}>
+            <div className="transaction-view-balance__balance">
+                <UserPreferencedCurrencyDisplay
+                  className={classnames('transaction-view-balance__primary-balance', {
+                    'transaction-view-balance__cached-balance': balanceIsCached,
+                  })}
+                  value={balance}
+                  type={PRIMARY}
+                  ethNumberOfDecimals={4}
+                />
+                <UserPreferencedCurrencyDisplay
+                  className={classnames({
+                    'transaction-view-balance__cached-secondary-balance': balanceIsCached,
+                    'ransaction-view-balance__secondary-balance': !balanceIsCached,
+                  })}
+                  value={balance}
+                  type={SECONDARY}
+                  ethNumberOfDecimals={4}
+                />
+            </div>
+          </Tooltip>
       )
   }
 
